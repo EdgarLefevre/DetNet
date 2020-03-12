@@ -1,6 +1,7 @@
 import tensorflow.keras as keras
 import tensorflow.keras.layers as layers
 import tensorflow.keras.backend as K
+import numpy as np
 
 
 def res_block(kernel, filters, input, pool=True):
@@ -44,6 +45,8 @@ def detnet(input_shape, kernel=3, filters=16):
 
 
 def dice_coef(y_true, y_pred, smooth, thresh):
+    y_true = y_true.astype(np.float32)
+    y_pred = y_pred.astype(np.float32)
     y_pred = y_pred > thresh
     y_true_f = K.flatten(y_true)
     y_pred_f = K.flatten(y_pred)
