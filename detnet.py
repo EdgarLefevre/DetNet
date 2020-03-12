@@ -57,8 +57,8 @@ def soft_dice_loss(y_true, y_pred):
 
 
 def mean_iou(y_true, y_pred):
-    y_true_f = K.flatten(y_true)
-    y_pred_f = K.flatten(y_pred)
+    y_true_f = K.flatten(tf.cast(y_true, tf.float32))
+    y_pred_f = K.flatten(tf.cast(y_pred, tf.float32))
     intersection = K.sum(y_true_f * y_pred_f)
     union = (K.sum(y_true_f + y_pred_f)) - intersection
     return intersection / union
