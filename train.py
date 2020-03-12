@@ -12,12 +12,13 @@ import tensorflow.keras as keras
 import utils.data as data
 import detnet
 import tensorflow as tf
+import numpy as np
 
 
 def train(path_images, path_labels):
     file_path = "saved_models/detnet.h5"
     dataset, label = data.create_dataset(path_images, path_labels)
-
+    print(np.shape(dataset))
     checkpoint = keras.callbacks.ModelCheckpoint(file_path, save_best_only=True)
     earlystopper = keras.callbacks.EarlyStopping(patience=opt.patience, verbose=1, min_delta=0.00001,
                                                  restore_best_weights=True)
@@ -38,7 +39,7 @@ def get_args():
     parser.add_argument("--n_epochs", type=int, default=200, help="number of epochs of training")
     parser.add_argument("--batch_size", type=int, default=250, help="size of the batches")
     parser.add_argument("--lr", type=float, default=0.001, help="adam: learning rate")
-    parser.add_argument("--size", type=int, default=128, help="Size of the image, one number")
+    parser.add_argument("--size", type=int, default=512, help="Size of the image, one number")
     parser.add_argument("--patience", type=int, default=10, help="Set patience value for early stopper")
     args = parser.parse_args()
     print(args)
