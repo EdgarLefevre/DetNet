@@ -50,4 +50,4 @@ if __name__ == "__main__":
     opt = get_args()
     # train_detect(opt, opt.model_name)
     # train()
-    train(path_images="../Data/data_dypfish/fish/spot_mask/train", path_labels="../Data/data_dypfish/fish/spot_mask/mask/train")
+    train(path_images="../Data/data_dypfish/fish/spot_mask/train/", path_labels="../Data/data_dypfish/fish/spot_mask/mask/train/")
