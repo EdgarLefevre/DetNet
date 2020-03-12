@@ -53,4 +53,4 @@ def dice_coef2(y_true, y_pred, smooth=1e-6):
 
 
 def soft_dice_loss(y_true, y_pred):
-    return tf.abs(1-dice_coef2(y_true, y_pred))
+    return 2-dice_coef2(y_true, y_pred)
