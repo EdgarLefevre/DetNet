@@ -7,11 +7,11 @@ def res_block(kernel, filters, input, pool=True):
     x = input
     if pool:
         x = layers.MaxPool2D()(x)
-    x1 = layers.Conv2D(filters=filters, kernel_size=kernel)(x)
+    x1 = layers.Conv2D(filters=filters, kernel_size=kernel, padding="same")(x)
     x1 = layers.BatchNormalization()(x1)
-    x2 = layers.Conv2D(filters=filters, kernel_size=kernel)(x1)
+    x2 = layers.Conv2D(filters=filters, kernel_size=kernel, padding="same")(x1)
     x2 = layers.BatchNormalization()(x2)
-    x3 = layers.Conv2D(filters=filters, kernel_size=kernel)(x2)
+    x3 = layers.Conv2D(filters=filters, kernel_size=kernel, padding="same")(x2)
     x3 = layers.BatchNormalization()(x3)
     x = layers.Add()([x1, x3])
     return x
@@ -20,11 +20,11 @@ def res_block(kernel, filters, input, pool=True):
 def res_block_up(kernel, filters, input):
     x = input
     x = layers.UpSampling2D()(x)
-    x1 = layers.Conv2D(filters=filters, kernel_size=kernel)(x)
+    x1 = layers.Conv2D(filters=filters, kernel_size=kernel, padding="same")(x)
     x1 = layers.BatchNormalization()(x1)
-    x2 = layers.Conv2D(filters=filters, kernel_size=kernel)(x1)
+    x2 = layers.Conv2D(filters=filters, kernel_size=kernel, padding="same")(x1)
     x2 = layers.BatchNormalization()(x2)
-    x3 = layers.Conv2D(filters=filters, kernel_size=kernel)(x2)
+    x3 = layers.Conv2D(filters=filters, kernel_size=kernel, padding="same")(x2)
     x3 = layers.BatchNormalization()(x3)
     x = layers.Add()([x1, x3])
     return x
