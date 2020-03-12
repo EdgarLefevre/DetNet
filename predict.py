@@ -14,6 +14,8 @@ def predict_seg(dataset, path_model_seg):
 if __name__ == "__main___":
     dataset, labels = data.create_dataset("../Data/data_dypfish/fish/spot_mask/test/",
                                           "../Data/data_dypfish/fish/spot_mask/mask/test/")
+    print(dataset[0])
+    print(np.shape(dataset[0]))
     mask = predict_seg(dataset[0], "saved_models/detnet.h5")
     print(mask)
     io.imsave("mask_pred.png", mask)
