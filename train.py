@@ -25,7 +25,7 @@ def train(path_images, path_labels):
     strategy = tf.distribute.MirroredStrategy()
     with strategy.scope():
         model = detnet.detnet((512, 512, 1))
-        model_dice = detnet.soft_dice_loss
+        model_dice = detnet.soft_iou()
         model.compile(loss=model_dice, optimizer=tf.keras.optimizers.Adam(lr=0.001, amsgrad=True))
         model.fit(dataset, label,
                   validation_split=0.2,
