@@ -46,9 +46,9 @@ def detnet(input_shape, kernel=3, filters=16):
 
 
 def dice_coef(y_true, y_pred, smooth, thresh):
+    y_pred = y_pred > thresh
     y_true = tf.cast(y_true, tf.float32)
     y_pred = tf.cast(y_pred, tf.float32)
-    y_pred = y_pred > thresh
     y_true_f = K.flatten(y_true)
     y_pred_f = K.flatten(y_pred)
     intersection = K.sum(y_true_f * y_pred_f)
