@@ -45,7 +45,7 @@ def detnet(input_shape, kernel=3, filters=16):
     return model
 
 
-def dice_coef2(y_true, y_pred, smooth=1e-6):
+def dice_coef2(y_true, y_pred, smooth=1.):
     y_true_f = K.flatten(tf.cast(y_true, tf.float32))
     y_pred_f = K.flatten(tf.cast(y_pred, tf.float32))
     intersection = tf.sets.intersection(y_true_f, y_pred_f)
