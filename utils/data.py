@@ -21,7 +21,8 @@ def create_dataset(path_img, path_label):
             label = io.imread(path_label + file)
             dataset.append((np.array(img) / np.amax(img)).reshape(-1, 512, 512, 1))
             label_list.append(label)
-        except:
+        except Exception as e:
+            print(e)
             print("Image {} not found.".format(file))
     print("Created !")
     return np.array(dataset), np.array(label_list, dtype=np.bool)
