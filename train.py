@@ -20,8 +20,8 @@ def train(path_images, path_labels):
     dataset, label = data.create_dataset(path_images, path_labels)
     print(np.shape(dataset))
     checkpoint = keras.callbacks.ModelCheckpoint(file_path, save_best_only=True, mode="min")
-    earlystopper = keras.callbacks.EarlyStopping(patience=opt.patience, verbose=1, min_delta=0.00001,
-                                                 restore_best_weights=True)
+    # earlystopper = keras.callbacks.EarlyStopping(patience=opt.patience, verbose=1, min_delta=0.00001,
+    #                                              restore_best_weights=True)
     strategy = tf.distribute.MirroredStrategy()
     with strategy.scope():
         model = detnet.detnet((512, 512, 1))
@@ -31,7 +31,7 @@ def train(path_images, path_labels):
                   validation_split=0.2,
                   batch_size=opt.batch_size,
                   epochs=opt.n_epochs,
-                  callbacks=[earlystopper, checkpoint])
+                  callbacks=[checkpoint])
 
 
 def get_args():
