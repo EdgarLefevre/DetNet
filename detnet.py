@@ -45,23 +45,6 @@ def detnet(input_shape, kernel=3, filters=16):
     return model
 
 
-def dice_coef(y_true, y_pred, smooth, thresh):
-    y_pred = y_pred > thresh
-    y_true = tf.cast(y_true, tf.float32)
-    y_pred = tf.cast(y_pred, tf.float32)
-    y_true_f = K.flatten(y_true)
-    y_pred_f = K.flatten(y_pred)
-    intersection = K.sum(y_true_f * y_pred_f)
-    return (2. * intersection + smooth) / (K.sum(y_true_f) + K.sum(y_pred_f) + smooth)
-
-
-def dice_loss(smooth, thresh):
-    def dice(y_true, y_pred):
-        return -dice_coef(y_true, y_pred, smooth, thresh)
-
-    return dice
-
-
 def dice_coef2(y_true, y_pred, smooth=1e-6):
     y_true_f = K.flatten(tf.cast(y_true, tf.float32))
     y_pred_f = K.flatten(tf.cast(y_pred, tf.float32))
@@ -70,4 +53,4 @@ def dice_coef2(y_true, y_pred, smooth=1e-6):
 
 
 def soft_dice_loss(y_true, y_pred):
-    return -dice_coef2(y_true, y_pred)
+    return 1-dice_coef2(y_true, y_pred)
