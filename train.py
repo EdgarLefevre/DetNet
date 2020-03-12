@@ -24,7 +24,7 @@ def train(path_images, path_labels):
     strategy = tf.distribute.MirroredStrategy()
     with strategy.scope():
         model = detnet.detnet((512, 512, 1))
-        model_dice = detnet.dice_loss(smooth=1e-5, thresh=0.5)
+        model_dice = detnet.dice_loss(smooth=1e-6, thresh=0.5)
         model.compile(loss=model_dice, optimizer=tf.keras.optimizers.Adam(lr=0.001, amsgrad=True))
         model.fit(dataset, label,
                   validation_split=0.2,
@@ -36,15 +36,9 @@ def train(path_images, path_labels):
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--n_epochs", type=int, default=200, help="number of epochs of training")
-    parser.add_argument("--batch_size", type=int, default=300, help="size of the batches")
+    parser.add_argument("--batch_size", type=int, default=250, help="size of the batches")
     parser.add_argument("--lr", type=float, default=0.001, help="adam: learning rate")
-    parser.add_argument("--model_name", type=str, default="small++",
-                        help="Name of the model you want to train (detection, small++)")
-    parser.add_argument("--meta", type=bool, default=True, help="True if we want to segment metastasis")
-    parser.add_argument("--weighted", type=bool, default=False, help="Use weighted model (default False)")
     parser.add_argument("--size", type=int, default=128, help="Size of the image, one number")
-    parser.add_argument("--w1", type=int, default=2, help="weight inside")
-    parser.add_argument("--w2", type=int, default=4, help="Weight border")
     parser.add_argument("--patience", type=int, default=10, help="Set patience value for early stopper")
     args = parser.parse_args()
     print(args)
@@ -55,4 +49,4 @@ if __name__ == "__main__":
     opt = get_args()
     # train_detect(opt, opt.model_name)
     # train()
-    train(path_images=gv.meta_path_img, path_labels=gv.meta_path_lab)
+    train(path_images="../Data/data_dypfish/fish/spot_mask/train", path_labels="../Data/data_dypfish/fish/spot_mask/mask/train")
