@@ -19,7 +19,7 @@ def train(path_images, path_labels):
     file_path = "saved_models/detnet.h5"
     dataset, label = data.create_dataset(path_images, path_labels)
     print(np.shape(dataset))
-    checkpoint = keras.callbacks.ModelCheckpoint(file_path, save_best_only=True, mode="min")
+    checkpoint = keras.callbacks.ModelCheckpoint(file_path, save_best_only=True, mode="max")
     earlystopper = keras.callbacks.EarlyStopping(patience=opt.patience, verbose=1, min_delta=0.00001,
                                                  restore_best_weights=True)
     strategy = tf.distribute.MirroredStrategy()
