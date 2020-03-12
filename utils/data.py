@@ -19,7 +19,7 @@ def create_dataset(path_img, path_label):
         try:
             img = io.imread(path_img + file)
             label = io.imread(path_label + file)
-            dataset.append((np.array(img) / np.amax(img)).reshape(-1, 512, 512, 1))
+            dataset.append((np.array(img) / np.amax(img)).reshape(512, 512, 1))
             label_list.append(label)
         except Exception as e:
             print(e)
