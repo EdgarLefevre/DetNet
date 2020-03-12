@@ -25,4 +25,4 @@ def create_dataset(path_img, path_label):
             print(e)
             print("Image {} not found.".format(file))
     print("Created !")
-    return np.array(dataset), np.array(label_list, dtype=np.bool)
+    return np.array(dataset), np.array(label_list)
